@@ -26,8 +26,6 @@
 
 @property (nonatomic, assign) double runAngle;
 
-@property (nonatomic, assign) double panAngle;
-
 @end
 
 @implementation YNDialView
@@ -52,7 +50,7 @@
 - (void)configUI {
     
     self.backgroundColor = [UIColor cyanColor];
-    self.layer.cornerRadius = _radius;//self.frame.size.height/2;
+    self.layer.cornerRadius = _radius;
     self.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:_radius].CGPath;
     self.layer.shadowOffset = CGSizeMake(0, 0);
     self.layer.shadowOpacity = 0.5;
@@ -147,13 +145,13 @@
     }
 }
 
-- (double)calculateRunAngle {
+- (void)calculateRunAngle {
     
-    double number = self.colorList.count;
+    NSInteger number = self.colorList.count;
     double valuer = 2 * M_PI /number;
     double va = fmod(_runAngle, valuer); //remainder
     
-    if (_runAngle > 0 || _runAngle == 0) {
+    if (_runAngle >= 0) {
         if (fabs(va) > (valuer/2)) {
             _runAngle -= fabs(va);
             _runAngle += valuer;
@@ -168,7 +166,6 @@
             _runAngle += fabs(va);
         }
     }
-    return _runAngle;
 }
 
 - (double)getAngle:(CGPoint)point {
@@ -194,7 +191,6 @@
 - (void)circleViewGesture:(UIPanGestureRecognizer *)gesture {
     
     if (gesture.state == UIGestureRecognizerStateBegan) {
-        _panAngle = 0;
         _beginPoint = [gesture locationInView:self];
     }
     else if (gesture.state == UIGestureRecognizerStateChanged) {
@@ -204,12 +200,9 @@
         
         if ([self getQuadrant:_movePoint] == 1 || [self getQuadrant:_movePoint] == 4) {
             _runAngle += move - start;
-            _panAngle += move - start;
-            
         } else {
             // second and third quadrants
             _runAngle += start - move;
-            _panAngle += start - move;
         }
         
         [self btnsLayout];
