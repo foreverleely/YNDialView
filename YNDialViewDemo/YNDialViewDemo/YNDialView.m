@@ -99,14 +99,14 @@
 - (void)configButton {
     
     self.btnList = [NSMutableArray new];
-    NSArray *titleList = @[@"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10", @"J", @"Q", @"K", @"A", @"2"];
-    for (NSString *title in titleList) {
+    NSArray *titleList = @[@"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10", @"J", @"Q", @"K", @"A", @"2", @"jk"];
+    for (NSInteger i = 0; i < self.colorList.count; i++) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [btn setTitle:title forState:UIControlStateNormal];
+        [btn setTitle:titleList[i] forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
         btn.frame = CGRectMake(0, 0, _btnWidth, _btnWidth);
         btn.backgroundColor = [UIColor whiteColor];
-        btn.layer.cornerRadius = 10;
+        btn.layer.cornerRadius = _btnWidth/2;
         [self addSubview:btn];
         
         [self.btnList addObject:btn];
