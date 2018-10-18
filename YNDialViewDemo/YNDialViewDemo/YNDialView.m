@@ -198,7 +198,6 @@
         _beginPoint = [gesture locationInView:self];
     }
     else if (gesture.state == UIGestureRecognizerStateChanged) {
-        double startAngle = _runAngle;
         _movePoint = [gesture locationInView:self];
         double start = [self getAngle:_beginPoint];
         double move = [self getAngle:_movePoint];
