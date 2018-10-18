@@ -14,6 +14,8 @@
 
 @property (nonatomic, strong) NSMutableArray *btnList;
 
+@property (nonatomic, assign) CGFloat btnWidth;
+
 /************/
 
 @property (nonatomic, assign) CGPoint beginPoint;
@@ -25,8 +27,6 @@
 @property (nonatomic, assign) double runAngle;
 
 @property (nonatomic, assign) double panAngle;
-
-@property (nonatomic, assign) double speed;
 
 @end
 
@@ -42,6 +42,7 @@
         [self addGestureRecognizer:pan];
         
         _radius = 150;
+        _btnWidth = 20;
         
         [self configUI];
     }
@@ -68,12 +69,12 @@
     CGFloat redius = _radius;
     CGFloat start = 0;
     CGFloat angle = 0;
-    CGFloat end = -(1.f/13) *M_PI;
+    CGFloat end = -(1.f/self.colorList.count) * M_PI;
     
     for (UIColor *bgColor in self.colorList) {
         
         start = end;
-        angle = (1.f/13) * M_PI * 2;
+        angle = (1.f/self.colorList.count) * M_PI * 2;
         end = start + angle;
         
         UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:center radius:redius startAngle:start endAngle:end clockwise:YES];
@@ -103,7 +104,7 @@
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         [btn setTitle:title forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-        btn.frame = CGRectMake(0, 0, 20, 20);
+        btn.frame = CGRectMake(0, 0, _btnWidth, _btnWidth);
         btn.backgroundColor = [UIColor whiteColor];
         btn.layer.cornerRadius = 10;
         [self addSubview:btn];
@@ -118,8 +119,8 @@
     for (NSInteger i = 0; i < self.btnList.count; i++) {
         UIButton *button = self.btnList[i];
         CGFloat number = self.btnList.count;
-        CGFloat yy = _radius + sin((i/number)*M_PI*2+_runAngle)*(_radius-20/2-20);
-        CGFloat xx = _radius + cos((i/number)*M_PI*2+_runAngle)*(_radius-20/2-20);
+        CGFloat yy = _radius + sin((i/number)*M_PI*2+_runAngle) * (_radius-_btnWidth/2-20);
+        CGFloat xx = _radius + cos((i/number)*M_PI*2+_runAngle) * (_radius-_btnWidth/2-20);
         button.center = CGPointMake(xx, yy);
     }
 }
@@ -214,7 +215,6 @@
         
         [self btnsLayout];
         _beginPoint = _movePoint;
-        _speed = _runAngle - startAngle;
     }
     else if (gesture.state == UIGestureRecognizerStateEnded){
         
