@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface YNDialView : UIView
 
+- (instancetype)initWithFrame:(CGRect)frame radius:(CGFloat)radius btnWidth:(CGFloat)btnWidth;
+
 @end
 
 NS_ASSUME_NONNULL_END

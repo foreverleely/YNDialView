@@ -31,6 +31,22 @@
 @implementation YNDialView
 
 #pragma mark - Life Cycle
+
+- (instancetype)initWithFrame:(CGRect)frame radius:(CGFloat)radius btnWidth:(CGFloat)btnWidth {
+    self = [super initWithFrame:frame];
+    if (self) {
+        
+        UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(circleViewGesture:)];
+        [self addGestureRecognizer:pan];
+        
+        _radius = radius;
+        _btnWidth = btnWidth;
+        
+        [self configUI];
+    }
+    return self;
+}
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -39,7 +55,7 @@
         UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(circleViewGesture:)];
         [self addGestureRecognizer:pan];
         
-        _radius = 150;
+        _radius = 300;
         _btnWidth = 20;
         
         [self configUI];

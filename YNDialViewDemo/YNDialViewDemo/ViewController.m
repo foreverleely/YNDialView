@@ -20,8 +20,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    YNDialView *dialView = [[YNDialView alloc] initWithFrame:CGRectMake(100, 200, 300, 300)];
+    YNDialView *dialView = [[YNDialView alloc] initWithFrame:CGRectMake((375 - 600)/2, 600, 600, 600)];
     [self.view addSubview:dialView];
+    
+    YNDialView *dialView2 = [[YNDialView alloc] initWithFrame:CGRectMake((375 - 600)/2, -400, 600, 600) radius:300 btnWidth:20];
+    [self.view addSubview:dialView2];
 }
 
 
